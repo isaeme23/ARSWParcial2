@@ -19,7 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class RestaurantOrderServicesStub implements RestaurantOrderServices {
 
-    BillCalculator calc = null;
+    @Autowired
+    BillCalculator calc;
 
     public RestaurantOrderServicesStub() {
     }
@@ -87,7 +88,7 @@ public class RestaurantOrderServicesStub implements RestaurantOrderServices {
     }
 
     public Map<Order, Integer> ordersAndTotal() throws OrderServicesException{
-        setBillCalculator(new BasicBillCalculator());
+        //setBillCalculator(new BasicBillCalculator());
         Map<Order, Integer> orders = new HashMap<>();
         for (int i = 0; i < tableOrders.size(); i++){
             int number = Integer.parseInt(getTablesWithOrders().toArray()[i].toString());
