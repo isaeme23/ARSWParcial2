@@ -1,18 +1,24 @@
 package edu.eci.arsw.myrestaurant.services;
 
 
+import edu.eci.arsw.myrestaurant.beans.impl.BasicBillCalculator;
 import edu.eci.arsw.myrestaurant.model.Order;
 import edu.eci.arsw.myrestaurant.model.RestaurantProduct;
 import edu.eci.arsw.myrestaurant.beans.BillCalculator;
 import edu.eci.arsw.myrestaurant.model.ProductType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-
+@Service
 public class RestaurantOrderServicesStub implements RestaurantOrderServices {
 
-    
     BillCalculator calc = null;
 
     public RestaurantOrderServicesStub() {
@@ -78,6 +84,16 @@ public class RestaurantOrderServicesStub implements RestaurantOrderServices {
         } else {
             return calc.calculateBill(tableOrders.get(tableNumber), productsMap);
         }
+    }
+
+    public Map<Order, Integer> ordersAndTotal() throws OrderServicesException{
+        setBillCalculator(new BasicBillCalculator());
+        Map<Order, Integer> orders = new HashMap<>();
+        for (int i = 0; i < tableOrders.size(); i++){
+            int number = Integer.parseInt(getTablesWithOrders().toArray()[i].toString());
+            orders.put(tableOrders.get(number), calculateTableBill(number));
+        }
+        return orders;
     }
 
     private static final Map<String, RestaurantProduct> productsMap;
