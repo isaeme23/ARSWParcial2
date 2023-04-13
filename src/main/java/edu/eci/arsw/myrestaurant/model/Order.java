@@ -59,9 +59,9 @@ public class Order {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Table " + tableNumber+"\n");
+        StringBuilder sb = new StringBuilder("Order " + tableNumber +": ");
         getOrderedDishes().forEach((p) -> {
-            sb.append(p).append(" x ").append(orderAmountsMap.get(p)).append("\n");
+            sb.append(p).append(" x ").append(orderAmountsMap.get(p)).append(" ");
         });
         return sb.toString();
 
